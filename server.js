@@ -4,19 +4,21 @@ const app = express();
 
 app.use(express.json());
 
+const users = [];
+
 //Rota GET (ler os dados)
-app.get("/:jesus", (req, res) => {
+app.get("", (req, res) => {
   console.log(req);
 
-  res.send("Hello World");
+  res.status(200).json(users);
 });
 // navegador não consegue acessar rotas post, put e delete, somente GET
 
 // Rota POST (cria os dados)
 app.post("/", (req, res) => {
-  console.log(req);
+  users.push(req.body);
 
-  res.send("Usuário criado com sucesso!");
+  res.status(201).json({ message: "Usuário criado com sucesso!!!!" });
 });
 
 app.listen(3001, () => {
