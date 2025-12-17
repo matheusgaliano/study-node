@@ -2,8 +2,17 @@ import express from "express";
 
 const app = express();
 
+//Rota GET (ler os dados)
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
-app.listen(3000);
-console.log("Server is running on http://localhost:3000/");
+// navegador não consegue acessar rotas post, put e delete, somente GET
+
+// Rota POST (cria os dados)
+app.post("/", (req, res) => {
+  res.send("Usuário criado com sucesso!");
+});
+
+app.listen(3001, () => {
+  console.log("Servidor rodando na porta 3001");
+});
