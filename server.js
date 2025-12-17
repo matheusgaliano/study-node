@@ -3,7 +3,7 @@ import express from "express";
 const app = express();
 
 //Rota GET (ler os dados)
-app.get("/", (req, res) => {
+app.get("/:jesus", (req, res) => {
   console.log(req);
 
   res.send("Hello World");
