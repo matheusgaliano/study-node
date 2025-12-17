@@ -4,6 +4,8 @@ const app = express();
 
 //Rota GET (ler os dados)
 app.get("/", (req, res) => {
+  console.log(req);
+
   res.send("Hello World");
 });
 // navegador não consegue acessar rotas post, put e delete, somente GET
