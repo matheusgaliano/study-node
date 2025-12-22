@@ -6,34 +6,33 @@ const prisma = new PrismaClient();
 
 app.use(express.json());
 
-//Rota GET (ler os dados)
+// rota de teste
+app.get("/health", (req, res) => res.json({ ok: true }));
+
 app.get("/users", async (req, res) => {
   const users = await prisma.user.findMany();
-  console.log(req);
-
-  res.status(200).json(users);
+  return res.status(200).json(users);
 });
-// navegador não consegue acessar rotas post, put e delete, somente GET
 
-// Rota POST (cria os dados)
 app.post("/users", async (req, res) => {
   const { email, name, age } = req.body;
 
   try {
     const user = await prisma.user.create({
-      data: {
-        email,
-        name,
-        age,
-      },
+      data: { email, name, age },
     });
 
-    res.status(201).json({ message: "Usuário criado com sucesso!!!!" });
+    return res.status(201).json(user);
   } catch (err) {
-    res.status(400).json({ error: "Erro ao criar o usuário." });
+    console.error("PRISMA ERROR:", err);
+    return res.status(400).json({
+      error: "Erro ao criar o usuário.",
+      details: err.message,
+      code: err.code,
+    });
   }
+});
 
-  app.listen(3001, () => {
-    console.log("Servidor rodando na porta 3001");
-  });
+app.listen(3001, () => {
+  console.log("Servidor rodando na porta 3001");
 });
